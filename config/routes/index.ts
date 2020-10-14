@@ -1,36 +1,42 @@
-import { IRoute } from 'umi';
+import { IBestAFSRoute } from '@umijs/plugin-layout';
 
-const sideRoutes = [
-  {
-    title: '用户管理',
-    path: '/user',
-    component: '@/pages/users',
-  },
-  {
-    title: '股票管理',
-    path: '/shares',
-    component: '@/pages/shares',
-  },
-  {
-    title: '权限管理',
-    path: '/permission',
-    component: '@/pages/permission',
-  },
-];
-
-const allRoutes: IRoute[] = [
-  {
-    title: '首页',
-    path: '/',
-    component: '@/pages/index',
-    routes: sideRoutes,
-  },
+const allRoutes: IBestAFSRoute[] = [
   {
     title: '登录',
     path: '/login',
-    component: '@/pages/index',
+    component: '@/pages/login',
+  },
+  {
+    title: '首页',
+    path: '/',
+    redirect: '/Home',
+    routes: [
+      {
+        title: '工作台',
+        path: '/Home',
+        menu: { name: '工作台', icon: 'Home' },
+        component: '@/pages/home',
+      },
+      {
+        title: '用户管理',
+        menu: { name: '用户管理', icon: 'User' },
+        path: '/user',
+        component: '@/pages/users',
+      },
+      {
+        title: '股票管理',
+        menu: { name: '股票管理', icon: 'Dashboard' },
+        path: '/shares',
+        component: '@/pages/shares',
+      },
+      {
+        title: '权限管理',
+        menu: { name: '权限管理', icon: 'Setting' },
+        path: '/permission',
+        component: '@/pages/permission',
+      },
+    ],
   },
 ];
 
-export { sideRoutes };
 export default allRoutes;
