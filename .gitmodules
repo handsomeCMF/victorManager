@@ -1,0 +1,3 @@
+[submodule "submodule/victor_utils_module"]
+	path = submodule/victor_utils_module
+	url = https://github.com/handsomeCMF/victor_utils_module.git
