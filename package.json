@@ -9,7 +9,7 @@
     "test:coverage": "umi-test --coverage"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
@@ -21,9 +21,13 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^5.0.12",
+    "@types/md5": "^2.2.1",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.22",
+    "js-base64": "^3.5.2",
+    "js-md5": "^0.7.3",
     "lint-staged": "^10.0.7",
+    "md5": "^2.3.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -31,6 +35,9 @@
     "yorkie": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.10.0"
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "eslint": "^7.12.1",
+    "eslint-plugin-react": "^7.21.5"
   }
 }

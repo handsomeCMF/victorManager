@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 import routes from './routes';
 import proxy from './proxy';
+import alias from './alias';
 // import {} from '@umijs/plugin-initial-state';
 
 export default defineConfig({
@@ -13,4 +14,5 @@ export default defineConfig({
   },
   routes,
   proxy,
+  alias,
 });

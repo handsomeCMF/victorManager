@@ -10,6 +10,7 @@ const allRoutes: IBestAFSRoute[] = [
     title: '首页',
     path: '/',
     redirect: '/Home',
+    component: '@/components/main',
     routes: [
       {
         title: '工作台',
@@ -38,5 +39,7 @@ const allRoutes: IBestAFSRoute[] = [
     ],
   },
 ];
+
+
 
 export default allRoutes;

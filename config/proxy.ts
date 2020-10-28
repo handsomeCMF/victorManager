@@ -3,7 +3,7 @@ export default {
     '/api': {
       target: 'http://jsonplaceholder.typicode.com/',
       changeOrigin: true,
-      pathRewrite: { '^/api': '' },
+      pathRewrite: { '^/api': '127.0.0.1/api' },
     },
   },
 };
