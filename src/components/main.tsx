@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import mainLess from './main.less';
-import { connect } from 'dva';
 import {
   VideoCameraOutlined,
   UploadOutlined,
@@ -11,7 +10,6 @@ import {
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
 
 const initState = {
   collapsed: false,
@@ -21,7 +19,6 @@ const main = function(props : any) {
   console.log(props, '---props---');
   const {
     childern,
-    route,
   } = props;
   const [state, setState] = useState(initState);
 
@@ -34,7 +31,7 @@ const main = function(props : any) {
       <Sider
         theme="light"
         width={240}
-        collapsible 
+        collapsible
         collapsed={state.collapsed}
         trigger={null}
       >

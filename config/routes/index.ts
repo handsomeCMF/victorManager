@@ -40,6 +40,4 @@ const allRoutes: IBestAFSRoute[] = [
   },
 ];
 
-
-
 export default allRoutes;
