@@ -1,11 +1,12 @@
-import { commonApi } from '@utils';
+import { getToken } from '../services/user/token';
 
 export default {
   namespace: "token",
-  state: [],
+  state: 0,
   effects: {
-    *getToken(payload, { call }) {
-      return call(commonApi.userApi, payload);
+    *verifyToken({ payload }, { call }) {
+      const result = yield call(getToken, payload);
+      console.log(result);
     },
   },
   reducers: {},

@@ -1,5 +1,6 @@
-import { post } from '@utils';
+import { post } from '@utils/http';
+import commonApi from '@utils/api';
 
-export function getToken({ account, password }) {
-  return post('', { account, password });
+export function getToken(data) {
+  return post(commonApi.userApi.token, data);
 }

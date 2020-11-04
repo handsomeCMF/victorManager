@@ -299,7 +299,7 @@ module.exports = {
     // new时必须加小括号
     "new-parens": 2,
     // 变量声明后是否需要空一行
-    "newline-after-var": 2,
+    "newline-after-var": 0,
     // 大括号内是否允许不必要的空格
     "object-curly-spacing": [0, "always"],
     // 强制对象字面量缩写语法
@@ -323,7 +323,7 @@ module.exports = {
     // 命名检测
     "id-match": 0,
     // 生成器函数必须有yield
-    "require-yield": 0,
+    "require-yield": 2,
     // 语句强制分号结尾
     "semi": [2, "always"],
     // 分号前后空格

@@ -15,7 +15,8 @@
     "md5": "^2.3.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "umi": "^3.2.22"
+    "umi": "^3.2.22",
+    "@umijs/preset-react": "1.x"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.6.0",

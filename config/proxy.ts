@@ -1,9 +1,8 @@
 export default {
   proxy: {
     '/api': {
-      target: 'http://jsonplaceholder.typicode.com/',
+      target: 'http://127.0.0.1:6666/',
       changeOrigin: true,
-      pathRewrite: { '^/api': '127.0.0.1/api' },
     },
   },
 };

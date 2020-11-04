@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { Loading, Dispatch, connect } from 'umi';
 
 const layout = {
   labelCol: { span: 8 },
@@ -11,14 +12,22 @@ const tailLayout = {
 
 const commonStyle = { width: 450};
 
-const loginPage = function() {
-  function onFinish(values: string) {
-    console.log(values, 'values');
+const loginPage = ({
+  dispatch,
+}: {dispatch: Dispatch}) => {
+  // const [form] = Form.useForm();
+
+  function onFinish(values: any) {
+    dispatch({
+      type: 'token/verifyToken',
+      payload: values,
+    });
   }
 
   return (
     <Form
       {...layout}
+      style={{ marginTop: 200 }}
       name="basic"
       initialValues={{ remember: true }}
       onFinish={onFinish}
@@ -67,4 +76,6 @@ const loginPage = function() {
   );
 };
 
-export default loginPage;
+export default connect(({ loading }: { loading: Loading}) => ({
+  loading: loading.effects['token/verifyToken'],
+}))(loginPage);
