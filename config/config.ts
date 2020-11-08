@@ -9,6 +9,7 @@ export default defineConfig({
     type: 'none',
   },
   locale: false,
+  title: '运筹帷幄',
   history: {
     type: 'browser',
   },

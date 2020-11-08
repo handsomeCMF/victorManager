@@ -3,9 +3,8 @@ import { history } from 'umi';
 import './app.less';
 import { getSession } from '@utils/storage';
 
-export function render(oldRender: () => void) {
-  const token = getSession('token');
-
+export function render(oldRender: () => void) : void {
+  const token = getSession('TOKEN');
   if (token) {
     oldRender();
   } else {

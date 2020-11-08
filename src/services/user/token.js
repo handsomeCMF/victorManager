@@ -1,6 +1,6 @@
 import { post } from '@utils/http';
 import commonApi from '@utils/api';
 
-export function getToken(data) {
+export function login(data) {
   return post(commonApi.userApi.token, data);
 }

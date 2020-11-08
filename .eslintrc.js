@@ -204,7 +204,7 @@ module.exports = {
     // 不能有无法执行的代码
     "no-unreachable": 2,
     // 禁止无用的表达式
-    "no-unused-expressions": 2,
+    "no-unused-expressions": 0,
     // 不能有声明后未被使用的变量或参数
     "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
     // 未定义前不能使用

@@ -30,7 +30,7 @@ const main = function(props : any) {
     <Layout>
       <Sider
         theme="light"
-        width={240}
+        width={230}
         collapsible
         collapsed={state.collapsed}
         trigger={null}

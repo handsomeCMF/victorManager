@@ -1,78 +1,110 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
-import { Loading, Dispatch, connect } from 'umi';
+import { Form, Input, Button, Checkbox, Layout } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Loading, Dispatch, connect, history } from 'umi';
+import { setSession } from '@utils/storage';
+import commonValues from '../../../submodule/victor_utils_module/src/common';
+import index from './index.less';
 
+const { Content, Footer } = Layout;
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 8 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 8, offset: 8 },
+  },
 };
 
 const commonStyle = { width: 450};
 
-const loginPage = ({
+const loginPage = function({
   dispatch,
-}: {dispatch: Dispatch}) => {
+}: { dispatch: Dispatch}) {
   // const [form] = Form.useForm();
 
   function onFinish(values: any) {
     dispatch({
-      type: 'token/verifyToken',
-      payload: values,
+      type: 'token/login',
+      payload: {
+        account: values.username,
+        password: values.password,
+      },
+      callback(data: any) {
+        setSession(commonValues.TOKEN, data);
+        history.push('/');
+      }
     });
   }
 
   return (
-    <Form
-      {...layout}
-      style={{ marginTop: 200 }}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
-    >
-      <Form.Item
-        label="用户名"
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: '请输入用户名!'
-          }
-        ]}
-      >
-        <Input
-          style={commonStyle}
-        />
-      </Form.Item>
+    <Layout className={index.main} >
+      <Content>
+        <Form
+          {...layout}
+          className={index.from}
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          // onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: '请输入用户名!'
+              }
+            ]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="用户名"
+            />
+          </Form.Item>
 
-      <Form.Item
-        label="密码"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: '请输入密码!'
-          }
-        ]}
-      >
-        <Input.Password
-          style={commonStyle}
-        />
-      </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: '请输入密码!'
+              }
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="密码"
+            />
+          </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>记住密码</Checkbox>
-      </Form.Item>
+          <Form.Item >
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>不要记住我</Checkbox>
+            </Form.Item>
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          登录
-        </Button>
-      </Form.Item>
-    </Form>
+            <a className={index.forget}>
+              忘记密码
+            </a>
+          </Form.Item>
+
+          <Form.Item {...layout}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className={index.login}
+            >
+              登录
+            </Button>
+            没有账号？<a>点这里注册账号!</a>
+          </Form.Item>
+        </Form>
+      </Content>
+      <Footer style={{ textAlign: 'center'}}>shares manager by caimf 版权归...........所有</Footer>
+    </Layout>
   );
 };
 
