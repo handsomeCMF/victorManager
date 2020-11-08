@@ -11,7 +11,10 @@ const allRoutes: IBestAFSRoute[] = [
     component: '@/components/main',
     routes: [
       {
-        redirect: '/',
+        redirect: '/Home',
+        path: '/',
+      },
+      {
         path: '/Home',
         menu: { name: '工作台', icon: 'Home' },
         component: '@/pages/home',
@@ -28,8 +31,8 @@ const allRoutes: IBestAFSRoute[] = [
       },
       {
         menu: { name: '权限管理', icon: 'Setting' },
-        path: '/permission',
-        component: '@/pages/permission',
+        path: '/authorization',
+        component: '@/pages/authorization',
       },
     ],
   },

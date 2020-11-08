@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Breadcrumb, SubMenu } from 'antd';
+import { history } from 'umi';
 import mainLess from './main.less';
 import {
   VideoCameraOutlined,
@@ -16,9 +17,10 @@ const initState = {
 };
 
 const main = function(props : any) {
-  console.log(props, '---props---');
+  console.log(props, 'props');
   const {
-    childern,
+    children,
+    route,
   } = props;
   const [state, setState] = useState(initState);
 
@@ -27,7 +29,7 @@ const main = function(props : any) {
   }
 
   return (
-    <Layout>
+    <Layout className={mainLess.main}>
       <Sider
         theme="light"
         width={230}
@@ -46,8 +48,8 @@ const main = function(props : any) {
           <Menu.Item key="3" icon={<UploadOutlined />}>
             nav 3
           </Menu.Item>
-          <Menu.Item key="4" icon={<UserOutlined />}>
-            nav 4
+          <Menu.Item key="4" icon={<UserOutlined />} onClick={() => history.push('/authorization')}>
+            权限配置
           </Menu.Item>
         </Menu>
       </Sider>
@@ -58,9 +60,14 @@ const main = function(props : any) {
             onClick: toggleCollapse,
           })}
         </Header>
-        <Content style={{ margin: '24px 16px 0' }}>
+        <Content style={{ margin: '0 16px' }}>
+          <Breadcrumb style={{ margin: '16px 0', height: 'auto' }}>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+
           <div className={mainLess.siteLayout} style={{ padding: 24, minHeight: 360 }}>
-            {childern}
+            {children}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>shares manager by caimf</Footer>

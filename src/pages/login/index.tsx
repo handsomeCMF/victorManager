@@ -18,8 +18,6 @@ const layout = {
   },
 };
 
-const commonStyle = { width: 450};
-
 const loginPage = function({
   dispatch,
 }: { dispatch: Dispatch}) {
