@@ -78,7 +78,7 @@ module.exports = {
     // 禁止不必要的bool转换
     "no-extra-boolean-cast": 2,
     // 禁止非必要的括号
-    "no-extra-parens": 2,
+    "no-extra-parens": 0,
     // 禁止多余的冒号
     "no-extra-semi": 2,
     // 禁止switch穿透 使用break

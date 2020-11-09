@@ -1,4 +1,4 @@
-import { getAuthorList } from '../services/author/author';
+import { getAuthorList, addAuthor } from '../services/author/author';
 
 export default {
   namespace: "author",
@@ -8,6 +8,11 @@ export default {
       const result = yield call(getAuthorList, payload);
       callback && callback(result.data);
     },
+
+    *addAuthor({ payload, callback }, { call }) {
+      const result = yield call(addAuthor, payload);
+      callback && callback(result.data);
+    }
   },
   reducers: {},
 };

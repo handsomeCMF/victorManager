@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Checkbox } from 'antd';
 import { connect } from 'umi';
 
 const layout = {
@@ -13,6 +13,10 @@ const layout = {
   },
 };
 
+const initState = {
+  showPath: false,
+};
+
 const addAuthorModal = function({
   dispatch,
   visible,
@@ -21,10 +25,18 @@ const addAuthorModal = function({
 }: any) {
 
   const [form] = Form.useForm();
+  const [state, setState] = useState(initState);
 
   async function submitForm() {
     const values = await form.validateFields();
-    console.log(values);
+    dispatch({
+      type: 'author/addAuthor',
+      payload: values,
+    });
+  }
+
+  function onChange() {
+    setState({ showPath: !state.showPath });
   }
 
   return (
@@ -45,20 +57,30 @@ const addAuthorModal = function({
           <Input />
         </Form.Item>
 
+        {state.showPath && (
+          <Form.Item
+            label="路由地址"
+            name="path"
+            rules={[{ required: true, message: '请输入路由地址!' }]}
+          >
+            <Input />
+          </Form.Item>
+        )}
+
         <Form.Item
-          label="路由地址"
-          name="path"
-          rules={[{ required: true, message: '请输入路由地址!' }]}
+          label="父路由"
+          name="parent"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="父路由"
-          name="parent"
-          rules={[{ required: true, message: '请输入路由地址!' }]}
+          label=" "
+          colon={false}
+          valuePropName="checked"
+          name="isRouter"
         >
-          <Input />
+          <Checkbox onChange={onChange} >是否路由</Checkbox>
         </Form.Item>
       </Form>
     </Modal>
