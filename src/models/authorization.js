@@ -1,11 +1,19 @@
 import { getAuthorList, addAuthor } from '../services/author/author';
 
+const ACTION_SET_DATALIST = 'setDataList';
+
 export default {
   namespace: "author",
-  state: 0,
+  state: {
+    dataList: [],
+  },
   effects: {
-    *getAuthorList({ payload, callback }, { call }) {
+    *getAuthorList({ payload, callback }, { call, put }) {
       const result = yield call(getAuthorList, payload);
+      yield put({
+        type: ACTION_SET_DATALIST,
+        payload: result,
+      });
       callback && callback(result.data);
     },
 
@@ -14,5 +22,12 @@ export default {
       callback && callback(result.data);
     }
   },
-  reducers: {},
+  reducers: {
+    setDataList(state, { payload }) {
+      return {
+        ...state,
+        dataList: payload,
+      };
+    }
+  },
 };

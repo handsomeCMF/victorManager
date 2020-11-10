@@ -8,7 +8,7 @@ const allRoutes: IBestAFSRoute[] = [
   },
   {
     path: '/',
-    component: '@/components/main',
+    component: '@/layouts/main',
     routes: [
       {
         redirect: '/Home',

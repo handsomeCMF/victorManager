@@ -21,6 +21,7 @@ const addAuthorModal = function({
   dispatch,
   visible,
   onCancel,
+  onOk,
   loading,
 }: any) {
 
@@ -32,6 +33,10 @@ const addAuthorModal = function({
     dispatch({
       type: 'author/addAuthor',
       payload: values,
+      callback() {
+        onCancel();
+        onOk && onOk();
+      }
     });
   }
 
@@ -71,7 +76,8 @@ const addAuthorModal = function({
           label="父路由"
           name="parent"
         >
-          <Input />
+          <Input
+          />
         </Form.Item>
 
         <Form.Item

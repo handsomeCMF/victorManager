@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Loading, Dispatch, connect } from 'umi';
+import { connect } from 'umi';
 import { Table, Button } from 'antd';
 import AddAuthorModal from './AddAuthorModal';
 
 const columns = [
   {
     title: '序号',
-    key: '',
+    dataIndex: 'id',
   },
   {
     title: '菜单名称',
-    key: '',
+    dataIndex: 'name',
   },
   {
     title: '上级菜单名称',
-    key: '',
+    dataIndex: 'parentName',
   },
   {
     title: '是否路由',
-    key: '',
+    dataIndex: '__isRouter',
   },
   {
     title: '路由地址',
-    key: '',
+    dataIndex: 'path',
   },
 ];
 
@@ -33,16 +33,21 @@ const initState = {
 const authorizationPage = function({
   dispatch,
   loading,
+  dataList,
 }: any) {
 
   const [state, setState] = useState(initState);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  function fetchData() {
     dispatch({
       type: 'author/getAuthorList',
       payload: '',
     });
-  }, []);
+  }
 
   return (
     <React.Fragment>
@@ -54,19 +59,22 @@ const authorizationPage = function({
       </Button>
 
       <Table
+        rowKey="id"
         loading={loading}
         columns={columns}
-        dataSource={[]}
+        dataSource={dataList}
       />
 
       <AddAuthorModal
         visible={state.showAddAuthorModal}
         onCancel={() => setState({ showAddAuthorModal: false })}
+        onOk={fetchData}
       />
     </React.Fragment>
   );
 };
 
-export default connect(({ loading }: {loading: Loading}) => ({
+export default connect(({ loading, author }: any) => ({
   loading: loading.effects['author/getAuthorList'],
+  dataList: author.dataList,
 }))(authorizationPage);
