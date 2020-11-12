@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, Checkbox } from 'antd';
+import { Modal, Form, Input, Checkbox, Select } from 'antd';
 import { connect } from 'umi';
+import QueryAuthorModal from './QueryAuthorModal';
+import { EllipsisOutlined } from '@ant-design/icons';
 
 const layout = {
   labelCol: {
@@ -15,6 +17,7 @@ const layout = {
 
 const initState = {
   showPath: false,
+  showQueryAuthorModal: false,
 };
 
 const addAuthorModal = function({
@@ -41,7 +44,20 @@ const addAuthorModal = function({
   }
 
   function onChange() {
-    setState({ showPath: !state.showPath });
+    setState({ ...state, showPath: !state.showPath });
+  }
+
+  function toggleQueryAuthorModal() {
+    setState({ ...state, showQueryAuthorModal: !state.showQueryAuthorModal});
+  }
+
+  function onAuthorSelect(record: any) {
+    form.setFieldsValue({
+      parent: {
+        value: record.id,
+        label: record.name,
+      }
+    });
   }
 
   return (
@@ -68,7 +84,8 @@ const addAuthorModal = function({
             name="path"
             rules={[{ required: true, message: '请输入路由地址!' }]}
           >
-            <Input />
+            <Input
+            />
           </Form.Item>
         )}
 
@@ -76,7 +93,14 @@ const addAuthorModal = function({
           label="父路由"
           name="parent"
         >
-          <Input
+          <Select
+            labelInValue
+            suffixIcon={
+              <EllipsisOutlined
+                style={{ fontSize: 16, color: 'black' }}
+                onClick={toggleQueryAuthorModal}
+              />
+            }
           />
         </Form.Item>
 
@@ -89,6 +113,14 @@ const addAuthorModal = function({
           <Checkbox onChange={onChange} >是否路由</Checkbox>
         </Form.Item>
       </Form>
+
+      {state.showQueryAuthorModal && (
+        <QueryAuthorModal
+          visible={state.showQueryAuthorModal}
+          onCancle={toggleQueryAuthorModal}
+          onSelect={onAuthorSelect}
+        />
+      )}
     </Modal>
   );
 };

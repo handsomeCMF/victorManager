@@ -15,3 +15,7 @@ export async function getAuthorList(data) {
 export function addAuthor(data) {
   return post(commonApi.authorApi.addAuthor, data);
 }
+
+export function getMenuList({ page, perPage, q }) {
+  return get(commonApi.authorApi.getMenuList, { page, perPage, q });
+}
