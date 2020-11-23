@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb, SubMenu } from 'antd';
+import { Layout, Menu, Breadcrumb, SubMenu, Tabs, Avatar, Popover, Divider } from 'antd';
 import { history } from 'umi';
 import mainLess from './main.less';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
+const { TabPane } = Tabs;
 
 const initState = {
   collapsed: false,
@@ -27,6 +28,16 @@ const main = function(props : any) {
   function toggleCollapse() {
     setState({ collapsed: !state.collapsed });
   }
+
+  const userCenter = (
+    <div>
+      <a>个人中心</a>
+      <Divider />
+      <a>修改密码</a>
+      <Divider />
+      <a>退出登录</a>
+    </div>
+  );
 
   return (
     <Layout className={mainLess.main}>
@@ -59,16 +70,41 @@ const main = function(props : any) {
             className: mainLess.trigger,
             onClick: toggleCollapse,
           })}
-        </Header>
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0', height: 'auto' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
 
-          <div className={mainLess.siteLayout} style={{ padding: 24, minHeight: 360 }}>
-            {children}
+          <div className={mainLess.headerRight}>
+            <Popover placement="bottom" content={userCenter} trigger="click">
+              <Avatar icon={<UserOutlined />} />
+            </Popover>
           </div>
+        </Header>
+        <Content style={{ margin: '0 10px' }}>
+          <Tabs
+            type="editable-card"
+            hideAdd
+          >
+            <TabPane tab="工作台" key={1}>
+              <div className={mainLess.pageHeader}>
+                <Breadcrumb style={{ margin: '0 0 16px 0', height: 'auto' }}>
+                  <Breadcrumb.Item>User</Breadcrumb.Item>
+                  <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                </Breadcrumb>
+              </div>
+
+              <div className={mainLess.siteLayout} style={{ padding: 24, minHeight: 360 }}>
+                {children}
+              </div>
+            </TabPane>
+            <TabPane tab="工作台" key={2}>
+              <Breadcrumb style={{ margin: '16px 0', height: 'auto' }}>
+                <Breadcrumb.Item>User</Breadcrumb.Item>
+                <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              </Breadcrumb>
+
+              <div className={mainLess.siteLayout} style={{ padding: 24, minHeight: 360 }}>
+                {children}
+              </div>
+            </TabPane>
+          </Tabs>
         </Content>
         <Footer style={{ textAlign: 'center' }}>shares manager by caimf</Footer>
       </Layout>

@@ -1,4 +1,5 @@
 import { login } from '../services/user/token';
+import { isSuccess } from '@utils/utils';
 
 export default {
   namespace: "token",
@@ -6,7 +7,9 @@ export default {
   effects: {
     *login({ payload, callback }, { call }) {
       const result = yield call(login, payload);
-      callback && callback(result.data);
+      if (isSuccess(result)) {
+        callback && callback(result.data);
+      }
     },
   },
   reducers: {},

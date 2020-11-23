@@ -22,7 +22,7 @@ const columns = [
   },
   {
     title: '路由地址',
-    dataIndex: 'path',
+    dataIndex: 'router',
   },
 ];
 

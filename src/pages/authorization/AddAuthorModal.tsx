@@ -35,7 +35,12 @@ const addAuthorModal = function({
     const values = await form.validateFields();
     dispatch({
       type: 'author/addAuthor',
-      payload: values,
+      payload: {
+        router: values.router,
+        path: values.path,
+        isRouter: values.isRouter,
+        parentId: values.parent.value,
+      },
       callback() {
         onCancel();
         onOk && onOk();
@@ -110,7 +115,7 @@ const addAuthorModal = function({
           valuePropName="checked"
           name="isRouter"
         >
-          <Checkbox onChange={onChange} >是否路由</Checkbox>
+          <Checkbox value={1} onChange={onChange} >是否路由</Checkbox>
         </Form.Item>
       </Form>
 
