@@ -22,5 +22,6 @@
     "config/**/*",
     ".umirc.ts",
     "typings.d.ts",
+    "./src/**/*",
   ]
 }

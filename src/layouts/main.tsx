@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb, SubMenu, Tabs, Avatar, Popover, Divider } from 'antd';
-import { history } from 'umi';
+import { Layout, Menu, Breadcrumb, Tabs, Avatar, Popover, Divider } from 'antd';
+import { history, connect } from 'umi';
 import mainLess from './main.less';
 import {
   VideoCameraOutlined,
@@ -11,17 +11,30 @@ import {
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 const { TabPane } = Tabs;
+
+interface menu {
+  id: number,
+  name: string,
+  parentId?: number,
+  router?: string,
+  isRouter: boolean,
+  icon?: string,
+  chilerens: menu[],
+  [propName: string]: any,
+}
 
 const initState = {
   collapsed: false,
 };
 
 const main = function(props : any) {
-  console.log(props, 'props');
   const {
     children,
+    dispatch,
     route,
+    userAuthor,
   } = props;
   const [state, setState] = useState(initState);
 
@@ -39,27 +52,44 @@ const main = function(props : any) {
     </div>
   );
 
+  React.useEffect(() => {
+    dispatch({
+      type: 'author/getUserAuthor',
+    });
+  }, []);
+
+  const getUserMenu = function(menuList: menu[]) {
+    return menuList?.map(item => {
+      if (item.isRouter) {
+        return (
+          <Menu.Item key={item.id} icon={item.icon} onClick={() => history.push(item.router)}>
+            {item.name}
+          </Menu.Item>
+        );
+      }
+
+      return (
+        <SubMenu key={item.id} icon={item.icon} title={item.name}>
+          {getUserMenu(item.children)}
+        </SubMenu>
+      );
+    });
+
+  };
+
   return (
     <Layout className={mainLess.main}>
       <Sider
-        theme="light"
+        theme="dark"
         width={230}
         collapsible
         collapsed={state.collapsed}
         trigger={null}
       >
         <div className={mainLess.logo} />
-        <Menu mode="inline" defaultSelectedKeys={['4']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-          <Menu.Item key="4" icon={<UserOutlined />} onClick={() => history.push('/authorization')}>
+        <Menu mode="inline" defaultSelectedKeys={['4']} theme="dark">
+          {getUserMenu(userAuthor)}
+          <Menu.Item key="101" icon={<UserOutlined />} onClick={() => history.push('/authorization')}>
             权限配置
           </Menu.Item>
         </Menu>
@@ -112,4 +142,6 @@ const main = function(props : any) {
   );
 };
 
-export default main;
+export default connect(({ author } : any) => ({
+  userAuthor: author.userAuthor,
+}))(main);

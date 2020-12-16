@@ -1,13 +1,20 @@
-import { getAuthorList, addAuthor, getMenuList } from '../services/author/author';
+import { 
+  getAuthorList,
+  addAuthor,
+  getMenuList,
+  getUserAuthor,
+} from '../services/author/author';
 
 const ACTION_SET_DATALIST = 'setDataList';
 const ACTION_SET_MENULIST = 'setMenuList';
+const ACTION_SET_USERAUTHOR = 'setUserAuthor';
 
 export default {
   namespace: "author",
   state: {
     dataList: [],
     menuList: [],
+    userAuthor: [],
   },
   effects: {
     *getAuthorList({ payload, callback }, { call, put }) {
@@ -31,6 +38,16 @@ export default {
         payload: result.data,
       });
       callback && callback(result.data);
+    },
+
+    // 获取用户权限
+    *getUserAuthor({ payload, callback }, { call, put }) {
+      const result = yield call(getUserAuthor, payload);
+      yield put({
+        type: ACTION_SET_USERAUTHOR,
+        payload: result.data,
+      });
+      callback && callback(result.data);
     }
   },
   reducers: {
@@ -46,6 +63,13 @@ export default {
         ...state,
         menuList: payload,
       };
-    }
+    },
+
+    setUserAuthor(state, { payload }) {
+      return {
+        ...state,
+        userAuthor: payload,
+      };
+    },
   },
 };
